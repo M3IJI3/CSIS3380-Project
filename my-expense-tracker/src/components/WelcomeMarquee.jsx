@@ -4,42 +4,98 @@ import Marquee from "@/components/magicui/marquee";
 
 const reviews = [
     {
-        name: "Jack",
-        username: "@jack",
-        body: "I've never seen anything like this before. It's amazing. I love it.",
-        img: "https://avatar.vercel.sh/jack",
+        name: "Alice Green",
+        username: "@alice",
+        body: "This app makes budgeting and tracking expenses incredibly easy and effective. Highly recommend it!",
+        img: "https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight2&accessoriesType=Blank&hairColor=Blonde&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Smile&skinColor=Light",
     },
     {
-        name: "Jill",
-        username: "@jill",
-        body: "I don't know what to say. I'm speechless. This is amazing.",
-        img: "https://avatar.vercel.sh/jill",
+        name: "Michael Johnson",
+        username: "@michael",
+        body: "A must-have tool for anyone looking to manage their finances and save money efficiently.",
+        img: "https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortCurly&accessoriesType=Blank&hairColor=Brown&facialHairType=Blank&clotheType=Hoodie&eyeType=Default&eyebrowType=Default&mouthType=Smile&skinColor=Light",
     },
     {
-        name: "John",
-        username: "@john",
-        body: "I'm at a loss for words. This is amazing. I love it.",
-        img: "https://avatar.vercel.sh/john",
+        name: "Sophia Brown",
+        username: "@sophia",
+        body: "Great tool for keeping track of daily expenses and managing budgets. Simple and powerful.",
+        img: "https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight&accessoriesType=Blank&hairColor=Brown&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Smile&skinColor=Light",
     },
     {
-        name: "Jane",
-        username: "@jane",
-        body: "I'm at a loss for words. This is amazing. I love it.",
-        img: "https://avatar.vercel.sh/jane",
+        name: "David Williams",
+        username: "@david",
+        body: "The best budgeting app I’ve used. It’s intuitive, user-friendly, and extremely helpful in saving money.",
+        img: "https://avataaars.io/?avatarStyle=Circle&topType=ShortHairDreads01&accessoriesType=Blank&hairColor=Black&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Smile&skinColor=Brown",
     },
     {
-        name: "Jenny",
-        username: "@jenny",
-        body: "I'm at a loss for words. This is amazing. I love it.",
-        img: "https://avatar.vercel.sh/jenny",
+        name: "Emma Davis",
+        username: "@emma",
+        body: "Keeps my spending in check and helps me save more every month. Fantastic app for budgeting.",
+        img: "https://avataaars.io/?avatarStyle=Circle&topType=LongHairCurly&accessoriesType=Blank&hairColor=Blonde&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Smile&skinColor=Light",
     },
     {
-        name: "James",
+        name: "Daniel Wilson",
+        username: "@daniel",
+        body: "Highly recommend for those who want to stay on top of their finances and track spending.",
+        img: "https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortFlat&accessoriesType=Blank&hairColor=Black&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Smile&skinColor=Brown",
+    },
+    {
+        name: "Olivia Martinez",
+        username: "@olivia",
+        body: "Perfect for financial planning and managing expenses. The app is easy to use and very effective.",
+        img: "https://avataaars.io/?avatarStyle=Circle&topType=LongHairFro&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Smile&skinColor=Light",
+    },
+    {
+        name: "James Garcia",
         username: "@james",
-        body: "I'm at a loss for words. This is amazing. I love it.",
-        img: "https://avatar.vercel.sh/james",
+        body: "Helps me save more each month by providing insights into my spending habits. Excellent tool!",
+        img: "https://avataaars.io/?avatarStyle=Circle&topType=ShortHairSides&accessoriesType=Blank&hairColor=Blonde&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Smile&skinColor=Light",
+    },
+    {
+        name: "Isabella Robinson",
+        username: "@isabella",
+        body: "Amazing app for daily expenses and budget management. It’s a game-changer for personal finance.",
+        img: "https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraightStrand&accessoriesType=Blank&hairColor=Blonde&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Smile&skinColor=Light",
+    },
+    {
+        name: "William Clark",
+        username: "@william",
+        body: "Simple yet powerful budgeting tool that makes managing money effortless and stress-free. Love it!",
+        img: "https://avataaars.io/?avatarStyle=Circle&topType=ShortHairTheCaesar&accessoriesType=Blank&hairColor=Brown&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Smile&skinColor=Light",
+    },
+    {
+        name: "Mia Rodriguez",
+        username: "@mia",
+        body: "Makes managing money effortless and provides great features for tracking costs and saving money.",
+        img: "https://avataaars.io/?avatarStyle=Circle&topType=LongHairBigHair&accessoriesType=Blank&hairColor=Black&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Smile&skinColor=Brown",
+    },
+    {
+        name: "Ethan Lewis",
+        username: "@ethan",
+        body: "Excellent app for tracking costs and managing budgets. Highly effective and user-friendly interface.",
+        img: "https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortRound&accessoriesType=Blank&hairColor=Black&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Smile&skinColor=Brown",
+    },
+    {
+        name: "Ava Lee",
+        username: "@ava",
+        body: "Great design and functionality, making it a top choice for anyone needing financial management tools.",
+        img: "https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight&accessoriesType=Blank&hairColor=Brown&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Smile&skinColor=Light",
+    },
+    {
+        name: "Lucas Walker",
+        username: "@lucas",
+        body: "Very user-friendly and effective in helping me manage my finances and stick to my budget.",
+        img: "https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortCurly&accessoriesType=Blank&hairColor=Brown&facialHairType=Blank&clotheType=Hoodie&eyeType=Default&eyebrowType=Default&mouthType=Smile&skinColor=Light",
+    },
+    {
+        name: "Charlotte Hall",
+        username: "@charlotte",
+        body: "Essential for budget-conscious users who want to keep their spending in check and save money.",
+        img: "https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight&accessoriesType=Blank&hairColor=Brown&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Smile&skinColor=Light",
     },
 ];
+
+
 
 const firstRow = reviews.slice(0, reviews.length / 2);
 const secondRow = reviews.slice(reviews.length / 2);

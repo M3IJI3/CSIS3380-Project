@@ -5,6 +5,8 @@ import SparklesText from "@/components/magicui/sparkles-text.jsx";
 import ShinyButton from "@/components/magicui/shiny-button.jsx";
 import MarqueeDemo from "@/components/WelcomeMarquee.jsx";
 
+
+
 const WelcomeContent = () => {
     return (
         <>
@@ -33,13 +35,13 @@ const WelcomeContent = () => {
                         <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                             <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2"
                                  strokeLinecap="round" strokeLinejoin="round"
-                                 className="flex-none text-slate-300 dark:text-slate-400" aria-hidden="true">
+                                 className="flex-none text-slate-400 dark:text-slate-400" aria-hidden="true">
                         <path d="m19 19-3.5-3.5"></path>
                         <circle cx="11" cy="11" r="6"></circle>
                     </svg>
                         </span>
                             <input
-                                className="pl-10 pr-4 py-3 shadow-sm rounded-lg border p-2 focus:outline-none focus:ring-2 focus:ring-sky-500"
+                                className="pl-10 pr-4 py-3 shadow-sm rounded-lg border p-2 focus:outline-none focus:ring-2 focus:ring-slate-400"
                                 placeholder="Quick search..."
                             />
                         </form>
