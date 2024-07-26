@@ -78,9 +78,12 @@ const LoginForm = () => {
                     )}
                 />
                 <div className="grid gap-4">
-                    <Button type="submit" className="w-full">
-                        Login
-                    </Button>
+                    <Link to="/main">
+                        <Button type="submit" className="w-full">
+                            Login
+                        </Button>
+                    </Link>
+
                     <Button variant="outline" className="w-full">
                         Login with Google
                     </Button>

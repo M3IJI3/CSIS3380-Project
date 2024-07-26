@@ -5,8 +5,6 @@ import SparklesText from "@/components/magicui/sparkles-text.jsx";
 import ShinyButton from "@/components/magicui/shiny-button.jsx";
 import MarqueeDemo from "@/components/WelcomeMarquee.jsx";
 
-
-
 const WelcomeContent = () => {
     return (
         <>
