@@ -1,6 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 
 import { Button } from "@/components/ui/button";
 import {
@@ -53,6 +57,8 @@ const formSchema = z
     });
 
 const RegisterForm = () => {
+    const navigate = useNavigate();
+
     // 1. Define your form.
     const form = useForm({
         resolver: zodResolver(formSchema),
@@ -67,6 +73,39 @@ const RegisterForm = () => {
     // 2. Define a submit handler.
     const onSubmit = (values) => {
         // Do something with the form values.
+        axios.post('http://localhost:5000/api/register', {
+            username: values.username,
+            email: values.email,
+            password: values.password,
+        })
+            .then((res) => {
+                toast.success('Registration successful! Redirecting to home page...', {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                // wait for 3 secs before navigate to the main page
+                setTimeout(() => {
+                    navigate("/");
+                }, 3000);
+            })
+            .catch(error => {
+                console.error('There was an error registering the user!', error);
+                toast.error('Registration failed! Please try again.', {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            })
+
         console.log(values);
     };
 

@@ -24,6 +24,10 @@ import {
 } from "@/components/ui/card"
 
 import { Link } from 'react-router-dom';
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 const formSchema = z
     .object({
@@ -43,9 +47,24 @@ const LoginForm = () => {
     });
 
     // 2. Define a submit handler.
-    const onSubmit = (values) => {
+    const onSubmit = async (values) => {
         // Do something with the form values.
-        console.log(values);
+        try {
+            const response = await axios.post("http://localhost:5000/api/login", values);
+            const { token } = response.data;
+            localStorage.setItem("token", token);
+        } catch (error) {
+            toast.error('Registration failed! Please try again.', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+        console.log("csdvcsdvfd");
     };
 
     return (
@@ -78,11 +97,10 @@ const LoginForm = () => {
                     )}
                 />
                 <div className="grid gap-4">
-                    <Link to="/main">
-                        <Button type="submit" className="w-full">
-                            Login
-                        </Button>
-                    </Link>
+
+                    <Button type="submit" className="w-full">
+                        Login
+                    </Button>
 
                     <Button variant="outline" className="w-full">
                         Login with Google
