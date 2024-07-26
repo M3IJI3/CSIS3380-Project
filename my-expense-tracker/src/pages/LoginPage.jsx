@@ -53,8 +53,12 @@ const LoginForm = () => {
         console.log(values)
         try {
             const response = await axios.post('http://localhost:5000/api/login', values);
-            const { token } = response.data;
+            const { token, user } = response.data;
+
+            // save data to local
             localStorage.setItem('token', token);
+            localStorage.setItem('username', user.username);
+
             toast.success('Login successful! Redirecting...', {
                 position: "top-center",
                 autoClose: 2000,
@@ -112,13 +116,9 @@ const LoginForm = () => {
                 />
                 <div className="grid gap-4">
 
-                    <Button type="submit" className="w-full">
-                        Login
-                    </Button>
+                    <Button type="submit" className="w-full">Login</Button>
 
-                    <Button variant="outline" className="w-full">
-                        Login with Google
-                    </Button>
+                    <Button variant="outline" className="w-full">Login with Google</Button>
                 </div>
             </form>
         </Form>

@@ -23,7 +23,8 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import {Input} from "@/components/ui/input.jsx";
-import {SelectIcon} from "@radix-ui/react-select";
+import axios from "axios";
+import {toast} from "react-toastify";
 
 const DatePicker = ({date, setDate}) => {
     const handleDateSelected = (selectedDate) => {
@@ -86,7 +87,7 @@ const ExpenseTypePicker = ({ expenseType, setExpenseType }) => {
     );
 }
 
-const NewExpenseForm = () => {
+const NewExpenseForm = ({ fetchExpenses }) => {
     const [formData, setFormData] = useState({
         date: null,
         expenseType: '',
@@ -101,9 +102,30 @@ const NewExpenseForm = () => {
         })
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(formData);
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        const token = localStorage.getItem("token")
+        console.log(token)
+
+        try {
+            const response = await axios.post('http://localhost:5000/api/expenses', formData, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            toast.success('Expense added successfully!', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            fetchExpenses();
+        } catch (error) {
+
+        }
     }
 
     const setDate = (date) => {
