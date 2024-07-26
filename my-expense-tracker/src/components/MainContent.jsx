@@ -47,6 +47,26 @@ const MainContent = () => {
     const [username, setUsername] = useState(null);
     const [expenses, setExpenses] = useState([]);
     const [weeklyExpenses, setWeeklyExpenses] = useState([]);
+    const [monthlyExpenses, setMonthlyExpenses] = useState([]);
+
+    const expenseTypeColors = {
+        education: "bg-blue-500",
+        entertainment: "bg-red-500",
+        groceries: "bg-green-500",
+        dining: "bg-yellow-500",
+        transportation: "bg-purple-500",
+        housing: "bg-pink-500",
+        health: "bg-indigo-500",
+        personal: "bg-teal-500",
+        clothing: "bg-orange-500",
+        travel: "bg-cyan-500",
+        utilities: "bg-lime-500",
+        insurance: "bg-amber-500",
+        debt: "bg-rose-500",
+        savings: "bg-violet-500",
+        gifts: "bg-fuchsia-500",
+        other: "bg-gray-500"
+    };
 
     useEffect(()=> {
         const storedUsername = localStorage.getItem("username");
@@ -69,11 +89,21 @@ const MainContent = () => {
                 const sevenDaysAgo = new Date();
                 sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
 
-                const filteredExpenses = fetchedExpenses
+                const filteredWeeklyExpenses = fetchedExpenses
                     .filter(expense => new Date(expense.date) >= sevenDaysAgo)
                     .sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort by date from recent to oldest
 
-                setWeeklyExpenses(filteredExpenses);
+                setWeeklyExpenses(filteredWeeklyExpenses);
+
+                // Filter and sort expenses for the last 30 days
+                const thirtyDaysAgo = new Date();
+                thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+                const filteredMonthlyExpenses = fetchedExpenses
+                    .filter(expense => new Date(expense.date) >= thirtyDaysAgo)
+                    .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                setMonthlyExpenses(filteredMonthlyExpenses);
+
             } else {
                 console.error("Fetched expenses are not an array:", fetchedExpenses);
             }
@@ -309,10 +339,10 @@ const MainContent = () => {
                                         </TableHeader>
                                         <TableBody>
                                             {expenses.map((expense, index) => (
-                                                <TableRow key={index}>
+                                                <TableRow className={index % 2 === 0 ? "bg-accent" : ""} key={index}>
                                                     <TableCell className="hidden md:table-cell">{expense.date}</TableCell>
                                                     <TableCell className="hidden sm:table-cell">
-                                                        <Badge className="px-4 bg-amber-600 hover:cursor-pointer">{capitalizeFirstLetter(expense.expenseType)}</Badge>
+                                                        <Badge className={`px-4 ${expenseTypeColors[expense.expenseType]} hover:cursor-pointer`}>{capitalizeFirstLetter(expense.expenseType)}</Badge>
                                                     </TableCell>
                                                     <TableCell className="text-right font-bold">
                                                         {formatMoney(expense.moneySpent)}
@@ -350,18 +380,63 @@ const MainContent = () => {
                                         </TableHeader>
                                         <TableBody>
                                             {weeklyExpenses.map((expense, index) => (
-                                                    <TableRow className="bg-accent" key={index}>
+                                                    <TableRow className={index % 2 === 0 ? "bg-accent" : ""} key={index}>
                                                         <TableCell className="hidden md:table-cell">
                                                             {expense.date}
                                                         </TableCell>
                                                         <TableCell className="hidden sm:table-cell">
-                                                            <Badge className="px-4 bg-amber-600 hover:cursor-pointer">
+                                                            <Badge className={`px-4 ${expenseTypeColors[expense.expenseType]} hover:cursor-pointer`}>
                                                                 {capitalizeFirstLetter(expense.expenseType)}
                                                             </Badge>
                                                         </TableCell>
                                                         <TableCell className="text-right">{formatMoney(expense.moneySpent)}</TableCell>
                                                     </TableRow>
                                                 ))
+                                            }
+                                        </TableBody>
+                                    </Table>
+                                </CardContent>
+                            </Card>
+                        </TabsContent>
+
+                        <TabsContent value="month">
+                            <Card x-chunk="dashboard-05-chunk-3">
+                                <CardHeader className="px-7">
+                                    <CardTitle>Your Expense</CardTitle>
+                                    <CardDescription>
+                                        Recent expense in past 30 days.
+                                    </CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <Table>
+                                        <TableHeader>
+                                            <TableRow>
+                                                <TableHead className="hidden sm:table-cell">
+                                                    Date
+                                                </TableHead>
+                                                <TableHead className="hidden md:table-cell">
+                                                    Type
+                                                </TableHead>
+                                                <TableHead className="text-right">
+                                                    Amount
+                                                </TableHead>
+                                            </TableRow>
+                                        </TableHeader>
+                                        <TableBody>
+                                            {
+                                                monthlyExpenses.map((expense, index) => (
+                                                <TableRow className={index % 2 === 0 ? "bg-accent" : ""} key={index}>
+                                                    <TableCell className="hidden md:table-cell">
+                                                        {expense.date}
+                                                    </TableCell>
+                                                    <TableCell className="hidden sm:table-cell">
+                                                        <Badge className={`px-4 ${expenseTypeColors[expense.expenseType]} hover:cursor-pointer`}>
+                                                            {capitalizeFirstLetter(expense.expenseType)}
+                                                        </Badge>
+                                                    </TableCell>
+                                                    <TableCell className="text-right">{formatMoney(expense.moneySpent)}</TableCell>
+                                                </TableRow>
+                                            ))
                                             }
                                         </TableBody>
                                     </Table>
