@@ -25,20 +25,18 @@ router.post('/register', async (req, res) => {
 })
 
 router.post('/login', async (req, res) => {
-    const {email, password } = req.body;
+    const { email, password } = req.body;
     // console.log(req.body);
-
+    console.log("cdscdsc")
     try {
         const user = await User.findOne({ email });
-        console.log("cdscds");
         if (!user) { return res.status(400).json({ error: 'User not found' }); }
 
-        const isPasswordValid = await bcrypt.compare(password, user.get(password));
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+
         if( !isPasswordValid ) { return res.status(400).json({ error: 'Invalid email or password' }); }
 
-
-        const token = jwt.sign({ userId: user.get(_id)}, JWT_SECRET, {expiresIn: '1h'});
-        console.log(token)
+        const token = jwt.sign({ userId: user._id}, JWT_SECRET, {expiresIn: '1h'});
         res.json({token});
     } catch (error) {
         res.status(400).json({ error:error.message })

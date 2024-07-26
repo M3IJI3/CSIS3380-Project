@@ -38,6 +38,7 @@ const formSchema = z
     });
 
 const LoginForm = () => {
+    const navigate = useNavigate();
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -49,12 +50,26 @@ const LoginForm = () => {
     // 2. Define a submit handler.
     const onSubmit = async (values) => {
         // Do something with the form values.
+        console.log(values)
         try {
-            const response = await axios.post("http://localhost:5000/api/login", values);
+            const response = await axios.post('http://localhost:5000/api/login', values);
             const { token } = response.data;
-            localStorage.setItem("token", token);
+            localStorage.setItem('token', token);
+            toast.success('Login successful! Redirecting...', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            setTimeout(() => {
+                navigate('/main');
+            }, 2000);
         } catch (error) {
-            toast.error('Registration failed! Please try again.', {
+            console.error('There was an error logging in!', error);
+            toast.error('Invalid email or password.', {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -64,7 +79,6 @@ const LoginForm = () => {
                 progress: undefined,
             });
         }
-        console.log("csdvcsdvfd");
     };
 
     return (
