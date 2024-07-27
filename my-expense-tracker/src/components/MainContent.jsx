@@ -305,7 +305,7 @@ const MainContent = () => {
                                     You have spent / daily
                                 </CardDescription>
                                 <CardTitle className="text-5xl text-red-500 font-bold">
-                                    $  <NumberTicker className="text-red-500 font-bold" value={todayTotal} />
+                                    $  <NumberTicker className="text-red-500 font-bold" value={todayTotal === 0 ? 0 : todayTotal} />
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
@@ -406,7 +406,7 @@ const MainContent = () => {
                                                 <TableRow className={index % 2 === 0 ? "bg-accent" : ""} key={index}>
                                                     <TableCell className="hidden md:table-cell">{expense.date}</TableCell>
                                                     <TableCell className="hidden sm:table-cell">
-                                                        <Badge className={`px-4 ${expenseTypeColors[expense.expenseType]} hover:cursor-pointer`}>{capitalizeFirstLetter(expense.expenseType)}</Badge>
+                                                        <Badge className={`px-4 align-middle ${expenseTypeColors[expense.expenseType]} hover:cursor-pointer`}>{capitalizeFirstLetter(expense.expenseType)}</Badge>
                                                     </TableCell>
                                                     <TableCell className="text-right font-bold">
                                                         {formatMoney(expense.moneySpent)}
