@@ -29,7 +29,9 @@ import { toast } from "react-toastify";
 const DatePicker = ({date, setDate}) => {
     const handleDateSelected = (selectedDate) => {
         if (selectedDate) {
-            setDate(format(selectedDate, "yyyy-MM-dd"));
+            const adjustedDate = new Date(selectedDate);
+            adjustedDate.setDate(adjustedDate.getDate() + 1);
+            setDate(format(adjustedDate, "yyyy-MM-dd"));
         }
     }
 
