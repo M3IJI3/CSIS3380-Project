@@ -326,7 +326,7 @@ const MainContent = () => {
                             </CardHeader>
                             <CardContent>
                                 <div className="text-xs text-muted-foreground font-bold">
-                                    {weeklyChange >= 0 ? '+' : ''}{weeklyChange}% from yesterday
+                                    {weeklyChange >= 0 ? '+' : ''}{weeklyChange}% from last week
                                 </div>
                             </CardContent>
                             <CardFooter>
