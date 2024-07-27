@@ -35,14 +35,13 @@ import {
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu.jsx";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs.jsx";
-import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table.jsx";
-import {Badge} from "@/components/ui/badge.jsx";
 import ExpenseTypePieChart from "@/components/chart/ExpenseTypePieChart.jsx";
 import ExpenseTypeBarChart from "@/components/chart/ExpenseTypeBarChart.jsx";
 import NewExpenseForm from "@/components/NewExpenseForm.jsx";
 import {capitalizeFirstLetter, formatMoney} from "@/lib/utils.js";
 import axios from "axios";
 import PaginatedTable from "@/components/PaginatedTable.jsx";
+import {Skeleton} from "@/components/ui/skeleton.jsx";
 
 
 const MainContent = () => {
@@ -57,6 +56,8 @@ const MainContent = () => {
 
     const [weeklyTotal, setWeeklyTotal] = useState(0);
     const [weeklyChange, setWeeklyChange] = useState(0);
+
+    const [loading, setLoading] = useState(true); // Add loading state
 
     const expenseTypeColors = {
         education: "bg-blue-500",
@@ -85,6 +86,8 @@ const MainContent = () => {
     const fetchExpenses = useCallback(async () => {
         const token = localStorage.getItem("token");
         try{
+            await new Promise(resolve => setTimeout(resolve, 2000));
+
             const response = await axios.get('http://localhost:5000/api/gettotalbills', {
                 headers:{
                     Authorization: `Bearer ${token}`,
@@ -169,12 +172,13 @@ const MainContent = () => {
                     weeklyChange = thisWeekTotalAmount > 0 ? 100 : 0;
                 }
                 setWeeklyChange(weeklyChange.toFixed(1));
-
             } else {
                 console.error("Fetched expenses are not an array:", fetchedExpenses);
             }
         } catch (error) {
             console.log('Failed to fetch expenses', error)
+        } finally {
+            setLoading(false); // set loading to false when fetch is completed
         }
     },[]);
 
@@ -304,35 +308,43 @@ const MainContent = () => {
                         <Card x-chunk="dashboard-05-chunk-1">
                             <CardHeader className="pb-2">
                                 <CardDescription className="flex justify-between">
-                                    You have spent / daily
+                                    { (loading) ? <Skeleton className={'w-[100px] h-[20px] rounded-full'} />  :  "You have spent / daily"  }
                                 </CardDescription>
                                 <CardTitle className="text-5xl text-red-500 font-bold">
-                                    $  <NumberTicker className="text-red-500 font-bold" value={todayTotal === 0 ? 0 : todayTotal} />
+                                    {loading ? ( <Skeleton className="w-[200px] h-[50px] rounded-full" /> ) : ( <span> $ <NumberTicker className="text-red-500 font-bold" value={todayTotal === 0 ? 0 : todayTotal} /></span>)}
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <div className="text-xs text-muted-foreground font-bold">
-                                    {percentageChange >= 0 ? '+' : ''}{percentageChange.toFixed(2)}% from yesterday
-                                </div>
+                                {loading ? (
+                                    <Skeleton className="w-[250px] h-[15px] rounded-full" /> ) :
+                                    (<div className="text-xs text-muted-foreground font-bold">
+                                        {percentageChange >= 0 ? '+' : ''}{percentageChange.toFixed(2)}% from yesterday
+                                    </div>)}
                             </CardContent>
                             <CardFooter>
-                                <Progress value={23.45} aria-label="25% increase"/>
+                                {loading ? <Skeleton className="w-full h-[15px] rounded-full" /> : (<Progress value={23.45} aria-label="25% increase"/>)}
                             </CardFooter>
                         </Card>
                         <Card x-chunk="dashboard-05-chunk-2">
                             <CardHeader className="pb-2">
-                                <CardDescription>You have spent / weekly</CardDescription>
+                                <CardDescription>
+                                    { loading ? <Skeleton className={'w-[100px] h-[20px] rounded-full'} />  :  "You have spent / weekly"  }
+                                </CardDescription>
                                 <CardTitle className="text-5xl font-bold text-red-500">
-                                    $ <NumberTicker className="text-red-500" value={weeklyTotal}/>
+                                    { loading ? ( <Skeleton className="w-[200px] h-[50px] rounded-full" /> ) : ( <span> $ <NumberTicker className="text-red-500 font-bold" value={weeklyTotal} /></span>)}
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <div className="text-xs text-muted-foreground font-bold">
-                                    {weeklyChange >= 0 ? '+' : ''}{weeklyChange}% from last week
-                                </div>
+                                {loading ? (
+                                        <Skeleton className="w-[250px] h-[15px] rounded-full" /> ) :
+                                    (<div className="text-xs text-muted-foreground font-bold">
+                                        {weeklyChange >= 0 ? '+' : ''}{weeklyChange}% from last week
+                                    </div>)}
+
                             </CardContent>
                             <CardFooter>
-                                <Progress value={12} aria-label="12% increase"/>
+                                {loading ? <Skeleton className="w-full h-[15px] rounded-full" /> : (<Progress value={12} aria-label="12% increase"/>)}
+
                             </CardFooter>
                         </Card>
                     </div>
@@ -383,13 +395,20 @@ const MainContent = () => {
                         <TabsContent value="total">
                             <Card x-chunk="dashboard-05-chunk-3">
                                 <CardHeader className="px-7">
-                                    <CardTitle>Your Expense</CardTitle>
+                                    <CardTitle>
+                                        {loading ? <Skeleton className="w-[150px] h-[30px] rounded-full" /> : "Your Expense"}
+                                    </CardTitle>
                                     <CardDescription>
-                                        All expenses are displayed here.
+                                        {loading ? <Skeleton className="w-[250px] h-[15px] rounded-full" /> : "All expenses are displayed here."}
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <PaginatedTable data={expenses} />
+                                    {loading ?
+                                        <span>
+                                            <Skeleton className="w-full h-[400px] rounded-xl" />
+                                            <Skeleton className="mt-5 mx-auto w-[250px] h-[25px] rounded-full" />
+                                        </span>
+                                        : <PaginatedTable data={expenses} /> }
                                 </CardContent>
                             </Card>
                         </TabsContent>
@@ -424,11 +443,27 @@ const MainContent = () => {
                     </Tabs>
                 </div>
                 <div className="space-y-6">
-                    <Card className="overflow-hidden" x-chunk="dashboard-05-chunk-4">
-                        <ExpenseTypeBarChart />
+                    <Card className="overflow-hidden border-0" x-chunk="dashboard-05-chunk-4">
+                        { loading ?
+                            <div className="space-y-5 mb-5">
+                                <Skeleton className="ms-10 mt-5 w-[150px] h-[40px] rounded-full" />
+                                <Skeleton className="ms-10 w-[670px] h-[300px] rounded-xl" />
+                                <Skeleton className="ms-10 w-[350px] h-[20px] rounded-full" />
+                                <Skeleton className="ms-10 w-[400px] h-[20px] rounded-full" />
+                            </div>
+                            : <ExpenseTypeBarChart /> }
+
                     </Card>
-                    <Card className="overflow-hidden" x-chunk="dashboard-05-chunk-4">
-                        <ExpenseTypePieChart />
+                    <Card className="overflow-hidden border-0" x-chunk="dashboard-05-chunk-4">
+                        { loading ?
+                            <div className="space-y-5 mb-5">
+                                <Skeleton className="mx-auto mt-5 w-[300px] h-[40px] rounded-full" />
+                                <Skeleton className="ms-10 w-[670px] h-[300px] rounded-xl" />
+                                <Skeleton className="mx-auto w-[350px] h-[20px] rounded-full" />
+                                <Skeleton className="mx-auto w-[400px] h-[20px] rounded-full" />
+                            </div>
+                            : <ExpenseTypePieChart />}
+
                     </Card>
                 </div>
             </main>

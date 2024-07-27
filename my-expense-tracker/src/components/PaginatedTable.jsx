@@ -29,8 +29,6 @@ const PaginatedTable = ({ data = [] }) => {
     const [recordsPerPage] = useState(10);
     const [paginatedData, setPaginatedData] = useState([]);
 
-
-
     useEffect(() => {
         const startIndex = (currentPage - 1) * recordsPerPage;
         const endIndex = startIndex + recordsPerPage;
