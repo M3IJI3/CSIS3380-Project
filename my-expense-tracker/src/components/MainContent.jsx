@@ -49,6 +49,13 @@ const MainContent = () => {
     const [weeklyExpenses, setWeeklyExpenses] = useState([]);
     const [monthlyExpenses, setMonthlyExpenses] = useState([]);
 
+    const [todayTotal, setTodayTotal] = useState(0);
+    const [yesterdayTotal, setYesterdayTotal] = useState(0);
+    const [percentageChange, setPercentageChange] = useState(0);
+
+    const [weeklyTotal, setWeeklyTotal] = useState(0);
+    const [weeklyChange, setWeeklyChange] = useState(0);
+
     const expenseTypeColors = {
         education: "bg-blue-500",
         entertainment: "bg-red-500",
@@ -103,6 +110,63 @@ const MainContent = () => {
                     .sort((a, b) => new Date(b.date) - new Date(a.date));
 
                 setMonthlyExpenses(filteredMonthlyExpenses);
+
+                // Calculate today's total expenses
+                const today = new Date();
+                today.setHours(0, 0, 0, 0); // Set the time to the start of the day
+                const todayTotalAmount = fetchedExpenses
+                    .filter(expense => new Date(expense.date).toDateString() === today.toDateString())
+                    .reduce((total, expense) => total + expense.moneySpent, 0);
+
+                setTodayTotal(todayTotalAmount);
+
+                // Calculate yesterday's total expenses
+                const yesterday = new Date(today);
+                yesterday.setDate(yesterday.getDate() - 1);
+                const yesterdayTotalAmount = fetchedExpenses
+                    .filter(expense => new Date(expense.date).toDateString() === yesterday.toDateString())
+                    .reduce((total, expense) => total + expense.moneySpent, 0);
+
+                setYesterdayTotal(yesterdayTotalAmount);
+
+                // Calculate the percentage change
+                if (yesterdayTotalAmount > 0) {
+                    const change = ((todayTotalAmount - yesterdayTotalAmount) / yesterdayTotalAmount) * 100;
+                    setPercentageChange(change);
+                } else {
+                    setPercentageChange(todayTotalAmount > 0 ? 100 : 0);
+                }
+
+                // Calculate this week's total expenses
+                const startOfWeek = new Date();
+                startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay()); // Set to the start of the week (Sunday)
+                const endOfWeek = new Date(startOfWeek);
+                endOfWeek.setDate(endOfWeek.getDate() + 6); // Set to the end of the week (Saturday)
+
+                const thisWeekTotalAmount = fetchedExpenses
+                    .filter(expense => new Date(expense.date) >= startOfWeek && new Date(expense.date) <= endOfWeek)
+                    .reduce((total, expense) => total + expense.moneySpent, 0);
+
+                setWeeklyTotal(thisWeekTotalAmount);
+
+                // Calculate last week's total expenses
+                const startOfLastWeek = new Date(startOfWeek);
+                startOfLastWeek.setDate(startOfLastWeek.getDate() - 7); // Set to the start of last week
+                const endOfLastWeek = new Date(startOfLastWeek);
+                endOfLastWeek.setDate(endOfLastWeek.getDate() + 6); // Set to the end of last week
+
+                const lastWeekTotalAmount = fetchedExpenses
+                    .filter(expense => new Date(expense.date) >= startOfLastWeek && new Date(expense.date) <= endOfLastWeek)
+                    .reduce((total, expense) => total + expense.moneySpent, 0);
+
+                // Calculate the percentage change from last week
+                let weeklyChange = 0;
+                if (lastWeekTotalAmount > 0) {
+                    weeklyChange = ((thisWeekTotalAmount - lastWeekTotalAmount) / lastWeekTotalAmount) * 100;
+                } else {
+                    weeklyChange = thisWeekTotalAmount > 0 ? 100 : 0;
+                }
+                setWeeklyChange(weeklyChange.toFixed(1));
 
             } else {
                 console.error("Fetched expenses are not an array:", fetchedExpenses);
@@ -206,7 +270,7 @@ const MainContent = () => {
                     <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
                         <Card className="sm:col-span-2" x-chunk="dashboard-05-chunk-0">
                             <CardHeader className="pb-3">
-                                <CardTitle>
+                                <CardTitle className="text-3xl mb-1">
                                     { username ? `Welcome, ${username}` : 'Welcome' }
                                 </CardTitle>
                                 <CardDescription className="max-w-lg text-balance leading-relaxed">
@@ -240,29 +304,29 @@ const MainContent = () => {
                                 <CardDescription className="flex justify-between">
                                     You have spent / daily
                                 </CardDescription>
-                                <CardTitle className="text-4xl">
-                                    $<NumberTicker value={1325}/>
+                                <CardTitle className="text-5xl text-red-500 font-bold">
+                                    $  <NumberTicker className="text-red-500 font-bold" value={todayTotal} />
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <div className="text-xs text-muted-foreground">
-                                    +25% from yesterday
+                                <div className="text-xs text-muted-foreground font-bold">
+                                    {percentageChange >= 0 ? '+' : ''}{percentageChange.toFixed(2)}% from yesterday
                                 </div>
                             </CardContent>
                             <CardFooter>
-                                <Progress value={25} aria-label="25% increase"/>
+                                <Progress value={23.45} aria-label="25% increase"/>
                             </CardFooter>
                         </Card>
                         <Card x-chunk="dashboard-05-chunk-2">
                             <CardHeader className="pb-2">
                                 <CardDescription>You have spent / weekly</CardDescription>
-                                <CardTitle className="text-4xl">
-                                    $<NumberTicker value={5369}/>
+                                <CardTitle className="text-5xl font-bold text-red-500">
+                                    $ <NumberTicker className="text-red-500" value={weeklyTotal}/>
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <div className="text-xs text-muted-foreground">
-                                    +10% from last week
+                                <div className="text-xs text-muted-foreground font-bold">
+                                    {weeklyChange >= 0 ? '+' : ''}{weeklyChange}% from yesterday
                                 </div>
                             </CardContent>
                             <CardFooter>
