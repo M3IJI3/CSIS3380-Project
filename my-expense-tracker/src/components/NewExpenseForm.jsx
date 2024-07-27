@@ -22,9 +22,9 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import {Input} from "@/components/ui/input.jsx";
+import { Input } from "@/components/ui/input.jsx";
 import axios from "axios";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 
 const DatePicker = ({date, setDate}) => {
     const handleDateSelected = (selectedDate) => {

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card.jsx";
 import {Button} from "@/components/ui/button.jsx";
 import {Progress} from "@/components/ui/progress.jsx";
@@ -80,7 +80,7 @@ const MainContent = () => {
         if(storedUsername){ setUsername(capitalizeFirstLetter(storedUsername)); }
     }, []);
 
-    const fetchExpenses = async () => {
+    const fetchExpenses = useCallback(async () => {
         const token = localStorage.getItem("token");
         try{
             const response = await axios.get('http://localhost:5000/api/gettotalbills', {
@@ -174,11 +174,11 @@ const MainContent = () => {
         } catch (error) {
             console.log('Failed to fetch expenses', error)
         }
-    };
+    },[]);
 
     useEffect(() => {
         fetchExpenses();
-    })
+    }, [fetchExpenses])
 
     return (
         <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
