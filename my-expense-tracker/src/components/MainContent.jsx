@@ -42,6 +42,8 @@ import ExpenseTypeBarChart from "@/components/chart/ExpenseTypeBarChart.jsx";
 import NewExpenseForm from "@/components/NewExpenseForm.jsx";
 import {capitalizeFirstLetter, formatMoney} from "@/lib/utils.js";
 import axios from "axios";
+import PaginatedTable from "@/components/PaginatedTable.jsx";
+
 
 const MainContent = () => {
     const [username, setUsername] = useState(null);
@@ -387,34 +389,7 @@ const MainContent = () => {
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <Table>
-                                        <TableHeader>
-                                            <TableRow>
-                                                <TableHead className="hidden sm:table-cell">
-                                                    Date
-                                                </TableHead>
-                                                <TableHead className="hidden md:table-cell">
-                                                    Type
-                                                </TableHead>
-                                                <TableHead className="text-right">
-                                                    Amount
-                                                </TableHead>
-                                            </TableRow>
-                                        </TableHeader>
-                                        <TableBody>
-                                            {expenses.map((expense, index) => (
-                                                <TableRow className={index % 2 === 0 ? "bg-accent" : ""} key={index}>
-                                                    <TableCell className="hidden md:table-cell">{expense.date}</TableCell>
-                                                    <TableCell className="hidden sm:table-cell">
-                                                        <Badge className={`px-4 align-middle ${expenseTypeColors[expense.expenseType]} hover:cursor-pointer`}>{capitalizeFirstLetter(expense.expenseType)}</Badge>
-                                                    </TableCell>
-                                                    <TableCell className="text-right font-bold">
-                                                        {formatMoney(expense.moneySpent)}
-                                                    </TableCell>
-                                                </TableRow>
-                                            ))}
-                                        </TableBody>
-                                    </Table>
+                                    <PaginatedTable data={expenses} />
                                 </CardContent>
                             </Card>
                         </TabsContent>
@@ -428,37 +403,7 @@ const MainContent = () => {
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <Table>
-                                        <TableHeader>
-                                            <TableRow>
-                                                <TableHead className="hidden sm:table-cell">
-                                                    Date
-                                                </TableHead>
-                                                <TableHead className="hidden md:table-cell">
-                                                    Type
-                                                </TableHead>
-                                                <TableHead className="text-right">
-                                                    Amount
-                                                </TableHead>
-                                            </TableRow>
-                                        </TableHeader>
-                                        <TableBody>
-                                            {weeklyExpenses.map((expense, index) => (
-                                                    <TableRow className={index % 2 === 0 ? "bg-accent" : ""} key={index}>
-                                                        <TableCell className="hidden md:table-cell">
-                                                            {expense.date}
-                                                        </TableCell>
-                                                        <TableCell className="hidden sm:table-cell">
-                                                            <Badge className={`px-4 ${expenseTypeColors[expense.expenseType]} hover:cursor-pointer`}>
-                                                                {capitalizeFirstLetter(expense.expenseType)}
-                                                            </Badge>
-                                                        </TableCell>
-                                                        <TableCell className="text-right">{formatMoney(expense.moneySpent)}</TableCell>
-                                                    </TableRow>
-                                                ))
-                                            }
-                                        </TableBody>
-                                    </Table>
+                                    <PaginatedTable data={weeklyExpenses} />
                                 </CardContent>
                             </Card>
                         </TabsContent>
@@ -472,38 +417,7 @@ const MainContent = () => {
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <Table>
-                                        <TableHeader>
-                                            <TableRow>
-                                                <TableHead className="hidden sm:table-cell">
-                                                    Date
-                                                </TableHead>
-                                                <TableHead className="hidden md:table-cell">
-                                                    Type
-                                                </TableHead>
-                                                <TableHead className="text-right">
-                                                    Amount
-                                                </TableHead>
-                                            </TableRow>
-                                        </TableHeader>
-                                        <TableBody>
-                                            {
-                                                monthlyExpenses.map((expense, index) => (
-                                                <TableRow className={index % 2 === 0 ? "bg-accent" : ""} key={index}>
-                                                    <TableCell className="hidden md:table-cell">
-                                                        {expense.date}
-                                                    </TableCell>
-                                                    <TableCell className="hidden sm:table-cell">
-                                                        <Badge className={`px-4 ${expenseTypeColors[expense.expenseType]} hover:cursor-pointer`}>
-                                                            {capitalizeFirstLetter(expense.expenseType)}
-                                                        </Badge>
-                                                    </TableCell>
-                                                    <TableCell className="text-right">{formatMoney(expense.moneySpent)}</TableCell>
-                                                </TableRow>
-                                            ))
-                                            }
-                                        </TableBody>
-                                    </Table>
+                                    <PaginatedTable data={monthlyExpenses} />
                                 </CardContent>
                             </Card>
                         </TabsContent>
