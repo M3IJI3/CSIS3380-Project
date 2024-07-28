@@ -74,15 +74,14 @@ const ExpenseTypePicker = ({ expenseType, setExpenseType }) => {
                 <SelectItem value="dining">Dining Out</SelectItem>
                 <SelectItem value="transportation">Transportation</SelectItem>
                 <SelectItem value="housing">Housing</SelectItem>
-                <SelectItem value="health">Health and Wellness</SelectItem>
-                <SelectItem value="personal">Personal Care</SelectItem>
-                <SelectItem value="clothing">Clothing and Accessories</SelectItem>
+                <SelectItem value="health">Health</SelectItem>
+                <SelectItem value="clothing">Clothing</SelectItem>
                 <SelectItem value="travel">Travel</SelectItem>
                 <SelectItem value="utilities">Utilities</SelectItem>
                 <SelectItem value="insurance">Insurance</SelectItem>
-                <SelectItem value="debt">Debt Payments</SelectItem>
-                <SelectItem value="savings">Savings and Investments</SelectItem>
-                <SelectItem value="gifts">Gifts and Donations</SelectItem>
+                <SelectItem value="debt">Debt</SelectItem>
+                <SelectItem value="investments">Investments</SelectItem>
+                <SelectItem value="gifts">Gifts</SelectItem>
                 <SelectItem value="other">Other</SelectItem>
             </SelectContent>
         </Select>
@@ -125,8 +124,9 @@ const NewExpenseForm = ({ fetchExpenses }) => {
                 progress: undefined,
             });
             fetchExpenses();
+            // window.location.reload();
         } catch (error) {
-
+            console.error('Failed to submit expense', error);
         }
     }
 
@@ -148,7 +148,7 @@ const NewExpenseForm = ({ fetchExpenses }) => {
         <div className="flex">
             <Card className="w-[500px]">
                 <CardHeader>
-                    <CardTitle className="text-2xl">Add new expense here</CardTitle>
+                    <CardTitle className="text-2xl">Add New Expense</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <div className="grid gap-4">

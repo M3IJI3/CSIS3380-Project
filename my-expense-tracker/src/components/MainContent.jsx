@@ -20,13 +20,6 @@ import {
     Users2
 } from "lucide-react";
 import {Link, Outlet, Routes} from "react-router-dom";
-import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList, BreadcrumbPage,
-    BreadcrumbSeparator
-} from "@/components/ui/breadcrumb.jsx";
 import {Input} from "@/components/ui/input.jsx";
 import {
     DropdownMenu, DropdownMenuCheckboxItem,
@@ -42,6 +35,7 @@ import {capitalizeFirstLetter, formatMoney} from "@/lib/utils.js";
 import axios from "axios";
 import PaginatedTable from "@/components/PaginatedTable.jsx";
 import {Skeleton} from "@/components/ui/skeleton.jsx";
+import logo from "@/assets/coin-icon.svg";
 
 
 const MainContent = () => {
@@ -58,25 +52,6 @@ const MainContent = () => {
     const [weeklyChange, setWeeklyChange] = useState(0);
 
     const [loading, setLoading] = useState(true); // Add loading state
-
-    const expenseTypeColors = {
-        education: "bg-blue-500",
-        entertainment: "bg-red-500",
-        groceries: "bg-green-500",
-        dining: "bg-yellow-500",
-        transportation: "bg-purple-500",
-        housing: "bg-pink-500",
-        health: "bg-indigo-500",
-        personal: "bg-teal-500",
-        clothing: "bg-orange-500",
-        travel: "bg-cyan-500",
-        utilities: "bg-lime-500",
-        insurance: "bg-amber-500",
-        debt: "bg-rose-500",
-        savings: "bg-violet-500",
-        gifts: "bg-fuchsia-500",
-        other: "bg-gray-500"
-    };
 
     useEffect(()=> {
         const storedUsername = localStorage.getItem("username");
@@ -172,6 +147,7 @@ const MainContent = () => {
                     weeklyChange = thisWeekTotalAmount > 0 ? 100 : 0;
                 }
                 setWeeklyChange(weeklyChange.toFixed(1));
+
             } else {
                 console.error("Fetched expenses are not an array:", fetchedExpenses);
             }
@@ -185,6 +161,18 @@ const MainContent = () => {
     useEffect(() => {
         fetchExpenses();
     }, [fetchExpenses])
+
+    // Calculate the amount of each expense type
+    const expenseTypeData = expenses.reduce((acc, expense) => {
+        const { expenseType, moneySpent } = expense;
+        if (!acc[expenseType]) {
+            acc[expenseType] = { type: expenseType, amount: 0 };
+        }
+        acc[expenseType].amount += moneySpent;
+        return acc;
+    }, {});
+    // Convert to array
+    const chartData = Object.values(expenseTypeData);
 
     return (
         <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
@@ -204,7 +192,7 @@ const MainContent = () => {
                             </Link>
                             <Link to="#" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
                                 <Home className="h-5 w-5"/>
-                                Dashboard
+                                Home
                             </Link>
                             <Link to="#" className="flex items-center gap-4 px-2.5 text-foreground">
                                 <ShoppingCart className="h-5 w-5"/>
@@ -225,25 +213,13 @@ const MainContent = () => {
                         </nav>
                     </SheetContent>
                 </Sheet>
-                <Breadcrumb className="hidden md:flex">
-                    <BreadcrumbList>
-                        <BreadcrumbItem>
-                            <BreadcrumbLink asChild>
-                                <Link to="#">Dashboard</Link>
-                            </BreadcrumbLink>
-                        </BreadcrumbItem>
-                        <BreadcrumbSeparator/>
-                        <BreadcrumbItem>
-                            <BreadcrumbLink asChild>
-                                <Link to="#">Orders</Link>
-                            </BreadcrumbLink>
-                        </BreadcrumbItem>
-                        <BreadcrumbSeparator/>
-                        <BreadcrumbItem>
-                            <BreadcrumbPage>Recent Orders</BreadcrumbPage>
-                        </BreadcrumbItem>
-                    </BreadcrumbList>
-                </Breadcrumb>
+
+                <div className="hidden md:flex text-3xl text-slate-800 hover:cursor-pointer">
+                    <img src={logo} alt="logo" className="mr-2"/>
+                    <h1 className="font-sans mt-1">Expense</h1>
+                    <h1 className="font-sans font-bold mt-1">Tracker</h1>
+                </div>
+
                 <div className="relative ml-auto flex-1 md:grow-0">
                     <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground"/>
                     <Input
@@ -254,12 +230,7 @@ const MainContent = () => {
                 </div>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Button
-                            variant="outline"
-                            size="icon"
-                            className="overflow-hidden rounded-full"
-                        >
-                        </Button>
+                        <Button variant="outline" size="icon" className="overflow-hidden rounded-full"></Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -294,7 +265,7 @@ const MainContent = () => {
                                     <SheetContent>
                                         <SheetHeader>
                                             <SheetTitle className="mb-10"></SheetTitle>
-                                            <NewExpenseForm />
+                                            <NewExpenseForm fetchExpenses={ fetchExpenses } />
                                             <SheetDescription>
                                                 Click submit to upload your input. Click other places to dismiss.
                                             </SheetDescription>
@@ -331,7 +302,7 @@ const MainContent = () => {
                                     { loading ? <Skeleton className={'w-[100px] h-[20px] rounded-full'} />  :  "You have spent / weekly"  }
                                 </CardDescription>
                                 <CardTitle className="text-5xl font-bold text-red-500">
-                                    { loading ? ( <Skeleton className="w-[200px] h-[50px] rounded-full" /> ) : ( <span> $ <NumberTicker className="text-red-500 font-bold" value={weeklyTotal} /></span>)}
+                                    {loading ? ( <Skeleton className="w-[200px] h-[50px] rounded-full" /> ) : ( <span> $ <NumberTicker className="text-red-500 font-bold" value={weeklyTotal} /></span>)}
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
@@ -451,7 +422,7 @@ const MainContent = () => {
                                 <Skeleton className="ms-10 w-[350px] h-[20px] rounded-full" />
                                 <Skeleton className="ms-10 w-[400px] h-[20px] rounded-full" />
                             </div>
-                            : <ExpenseTypeBarChart /> }
+                            : <ExpenseTypeBarChart data={chartData} /> }
 
                     </Card>
                     <Card className="overflow-hidden border-0" x-chunk="dashboard-05-chunk-4">
@@ -462,7 +433,7 @@ const MainContent = () => {
                                 <Skeleton className="mx-auto w-[350px] h-[20px] rounded-full" />
                                 <Skeleton className="mx-auto w-[400px] h-[20px] rounded-full" />
                             </div>
-                            : <ExpenseTypePieChart />}
+                            : <ExpenseTypePieChart data={chartData} />}
 
                     </Card>
                 </div>

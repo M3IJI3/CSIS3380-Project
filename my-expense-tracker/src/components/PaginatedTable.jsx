@@ -14,13 +14,12 @@ const PaginatedTable = ({ data = [] }) => {
         transportation: "bg-purple-500",
         housing: "bg-pink-500",
         health: "bg-indigo-500",
-        personal: "bg-teal-500",
         clothing: "bg-orange-500",
         travel: "bg-cyan-500",
         utilities: "bg-lime-500",
         insurance: "bg-amber-500",
         debt: "bg-rose-500",
-        savings: "bg-violet-500",
+        investments: "bg-violet-500",
         gifts: "bg-fuchsia-500",
         other: "bg-gray-500"
     };
@@ -73,7 +72,7 @@ const PaginatedTable = ({ data = [] }) => {
                     ))}
                 </TableBody>
             </Table>
-            <Pagination>
+            <Pagination className="mt-10">
                 <PaginationContent>
                     <PaginationItem>
                         <PaginationPrevious className="hover:cursor-pointer" onClick={() => handlePageChange(currentPage - 1)} />
