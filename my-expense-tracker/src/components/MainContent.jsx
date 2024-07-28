@@ -188,7 +188,6 @@ const MainContent = () => {
     const handleLogout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("username");
-        console.log("cdscsd")
     };
 
     // Filter Search
@@ -300,7 +299,6 @@ const MainContent = () => {
                         <Link to="/" onClick={handleLogout}>
                             <DropdownMenuItem>Logout</DropdownMenuItem>
                         </Link>
-
                     </DropdownMenuContent>
                 </DropdownMenu>
             </header>
