@@ -36,7 +36,7 @@ import axios from "axios";
 import PaginatedTable from "@/components/PaginatedTable.jsx";
 import {Skeleton} from "@/components/ui/skeleton.jsx";
 import logo from "@/assets/coin-icon.svg";
-
+import UploadReceiptForm from "@/components/UploadReceiptForm.jsx";
 
 const MainContent = () => {
     const [username, setUsername] = useState(null);
@@ -174,6 +174,13 @@ const MainContent = () => {
     // Convert to array
     const chartData = Object.values(expenseTypeData);
 
+    // Logout function
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("username");
+        console.log("cdscsd")
+    };
+
     return (
         <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
             <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
@@ -238,7 +245,10 @@ const MainContent = () => {
                         <DropdownMenuItem>Settings</DropdownMenuItem>
                         <DropdownMenuItem>Support</DropdownMenuItem>
                         <DropdownMenuSeparator/>
-                        <DropdownMenuItem>Logout</DropdownMenuItem>
+                        <Link to="/" onClick={handleLogout}>
+                            <DropdownMenuItem>Logout</DropdownMenuItem>
+                        </Link>
+
                     </DropdownMenuContent>
                 </DropdownMenu>
             </header>
@@ -256,7 +266,20 @@ const MainContent = () => {
                                 </CardDescription>
                             </CardHeader>
                             <CardFooter className="flex space-x-6">
-                                <Button className="border bg-white text-slate-800 hover:bg-slate-800 hover:text-white">Upload Receipt</Button>
+                                <Sheet>
+                                    <SheetTrigger>
+                                        <Button className="border bg-white text-slate-800 hover:bg-slate-800 hover:text-white">Upload Receipt</Button>
+                                    </SheetTrigger>
+                                    <SheetContent>
+                                        <SheetHeader>
+                                            <SheetTitle className="mb-10"></SheetTitle>
+                                                <UploadReceiptForm fetchExpenses={ fetchExpenses } />
+                                            <SheetDescription>
+                                                Click submit to upload your input. Click other places to dismiss.
+                                            </SheetDescription>
+                                        </SheetHeader>
+                                    </SheetContent>
+                                </Sheet>
 
                                 <Sheet>
                                     <SheetTrigger>
@@ -272,8 +295,6 @@ const MainContent = () => {
                                         </SheetHeader>
                                     </SheetContent>
                                 </Sheet>
-
-                                <Button className="bg-white border border-green-600 text-green-600 hover:bg-green-100">Set Target</Button>
                             </CardFooter>
                         </Card>
                         <Card x-chunk="dashboard-05-chunk-1">
