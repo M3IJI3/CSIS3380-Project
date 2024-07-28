@@ -17,7 +17,7 @@ import {
     PanelLeft,
     Search,
     ShoppingCart, TrendingUp, TrendingDown,
-    Users2
+    Users2, ArrowDown, ArrowDown01Icon, ArrowDownToDot
 } from "lucide-react";
 import {Link, Outlet, Routes} from "react-router-dom";
 import {Input} from "@/components/ui/input.jsx";
@@ -37,6 +37,7 @@ import PaginatedTable from "@/components/PaginatedTable.jsx";
 import {Skeleton} from "@/components/ui/skeleton.jsx";
 import logo from "@/assets/coin-icon.svg";
 import UploadReceiptForm from "@/components/UploadReceiptForm.jsx";
+import * as XLSX from 'xlsx';
 
 const MainContent = () => {
     const [username, setUsername] = useState(null);
@@ -52,6 +53,15 @@ const MainContent = () => {
     const [weeklyChange, setWeeklyChange] = useState(0);
 
     const [loading, setLoading] = useState(true); // Add loading state
+
+    // used for filter search
+    const [sortType, setSortType] = useState(null);
+    const [checkedItems, setCheckedItems] = useState({
+        date_latest: false,
+        date_oldest: false,
+        amount_decreased: false,
+        amount_increased: false
+    });
 
     useEffect(()=> {
         const storedUsername = localStorage.getItem("username");
@@ -179,6 +189,48 @@ const MainContent = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("username");
         console.log("cdscsd")
+    };
+
+    // Filter Search
+    const sortExpenses = (expenses, type) => {
+        switch (type) {
+            case 'date_latest':
+                return expenses.sort((a, b) => new Date(b.date) - new Date(a.date));
+            case 'date_oldest':
+                return expenses.sort((a, b) => new Date(a.date) - new Date(b.date));
+            case 'amount_decreased':
+                return expenses.sort((a, b) => b.moneySpent - a.moneySpent);
+            case 'amount_increased':
+                return expenses.sort((a, b) => a.moneySpent - b.moneySpent);
+            default:
+                return expenses;
+        }
+    };
+    const sortedExpenses = sortExpenses([...expenses], sortType);
+    const sortedWeeklyExpenses = sortExpenses([...weeklyExpenses], sortType);
+    const sortedMonthlyExpenses = sortExpenses([...monthlyExpenses], sortType);
+
+    const handleSortTypeChange = (type) => {
+        setCheckedItems(prevState => {
+            const newState = {
+                date_latest: false,
+                date_oldest: false,
+                amount_decreased: false,
+                amount_increased: false,
+                [type]: !prevState[type]
+            };
+
+            setSortType(newState[type] ? type : '');
+            return newState;
+        });
+    };
+
+    // Export expenses to CSV
+    const handleExportExcel = () => {
+        const worksheet = XLSX.utils.json_to_sheet(expenses);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'Expenses');
+        XLSX.writeFile(workbook, 'expenses.xlsx');
     };
 
     return (
@@ -366,25 +418,40 @@ const MainContent = () => {
                                     <DropdownMenuContent align="end">
                                         <DropdownMenuLabel>Filter by</DropdownMenuLabel>
                                         <DropdownMenuSeparator/>
-                                        <DropdownMenuCheckboxItem checked>
-                                            Fulfilled
+                                        <DropdownMenuCheckboxItem checked={checkedItems.date_latest} onClick={() => handleSortTypeChange('date_latest')}>
+                                            Date latest
                                         </DropdownMenuCheckboxItem>
-                                        <DropdownMenuCheckboxItem>
-                                            Declined
+                                        <DropdownMenuCheckboxItem checked={checkedItems.date_oldest} onClick={() => handleSortTypeChange('date_oldest')}>
+                                            Date oldest
                                         </DropdownMenuCheckboxItem>
-                                        <DropdownMenuCheckboxItem>
-                                            Refunded
+                                        <DropdownMenuCheckboxItem checked={checkedItems.amount_decreased} onClick={() => handleSortTypeChange('amount_decreased')}>
+                                            Amount decreased
+                                        </DropdownMenuCheckboxItem>
+                                        <DropdownMenuCheckboxItem checked={checkedItems.amount_increased} onClick={() => handleSortTypeChange('amount_increased')}>
+                                            Amount increased
                                         </DropdownMenuCheckboxItem>
                                     </DropdownMenuContent>
                                 </DropdownMenu>
-                                <Button
-                                    size="sm"
-                                    variant="outline"
-                                    className="h-7 gap-1 text-sm"
-                                >
-                                    <File className="h-3.5 w-3.5"/>
-                                    <span className="sr-only sm:not-sr-only">Export</span>
-                                </Button>
+
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                        <Button
+                                            variant="outline"
+                                            size="sm"
+                                            className="h-7 gap-1 text-sm"
+                                        >
+                                            <File className="h-3.5 w-3.5"/>
+                                            <span className="sr-only sm:not-sr-only">Export</span>
+                                        </Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent align="end">
+                                        <DropdownMenuLabel>Export to</DropdownMenuLabel>
+                                        <DropdownMenuSeparator/>
+                                        <DropdownMenuCheckboxItem onClick={handleExportExcel}>
+                                            Excel (.xlsx)
+                                        </DropdownMenuCheckboxItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
                             </div>
                         </div>
 
@@ -404,7 +471,7 @@ const MainContent = () => {
                                             <Skeleton className="w-full h-[400px] rounded-xl" />
                                             <Skeleton className="mt-5 mx-auto w-[250px] h-[25px] rounded-full" />
                                         </span>
-                                        : <PaginatedTable data={expenses} /> }
+                                        : <PaginatedTable data={sortedExpenses} /> }
                                 </CardContent>
                             </Card>
                         </TabsContent>
@@ -418,7 +485,7 @@ const MainContent = () => {
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <PaginatedTable data={weeklyExpenses} />
+                                    <PaginatedTable data={sortedWeeklyExpenses} />
                                 </CardContent>
                             </Card>
                         </TabsContent>
@@ -432,7 +499,7 @@ const MainContent = () => {
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <PaginatedTable data={monthlyExpenses} />
+                                    <PaginatedTable data={sortedMonthlyExpenses} />
                                 </CardContent>
                             </Card>
                         </TabsContent>
