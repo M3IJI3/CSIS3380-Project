@@ -16,7 +16,7 @@ import {
     Package2,
     PanelLeft,
     Search,
-    ShoppingCart, Truck,
+    ShoppingCart, TrendingUp, TrendingDown,
     Users2
 } from "lucide-react";
 import {Link, Outlet, Routes} from "react-router-dom";
@@ -281,15 +281,16 @@ const MainContent = () => {
                                 <CardDescription className="flex justify-between">
                                     { (loading) ? <Skeleton className={'w-[100px] h-[20px] rounded-full'} />  :  "You have spent / daily"  }
                                 </CardDescription>
-                                <CardTitle className="text-5xl text-red-500 font-bold">
-                                    {loading ? ( <Skeleton className="w-[200px] h-[50px] rounded-full" /> ) : ( <span> $ <NumberTicker className="text-red-500 font-bold" value={todayTotal === 0 ? 0 : todayTotal} /></span>)}
+                                <CardTitle className="text-5xl font-bold">
+                                    {loading ? ( <Skeleton className="w-[200px] h-[50px] rounded-full" /> ) : ( <span> $ <NumberTicker className="font-bold" value={todayTotal === 0 ? 0 : todayTotal} /></span>)}
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
                                 {loading ? (
                                     <Skeleton className="w-[250px] h-[15px] rounded-full" /> ) :
-                                    (<div className="text-xs text-muted-foreground font-bold">
-                                        {percentageChange >= 0 ? '+' : ''}{percentageChange.toFixed(2)}% from yesterday
+                                    (<div className="text-s text-muted-foreground flex">
+                                        {percentageChange >= 0 ? <TrendingUp className="mr-1 text-red-600" /> : <TrendingDown className="mr-1 text-green-600" /> }
+                                        {Math.abs(percentageChange.toFixed(2))}% from yesterday
                                     </div>)}
                             </CardContent>
                             <CardFooter>
@@ -301,21 +302,24 @@ const MainContent = () => {
                                 <CardDescription>
                                     { loading ? <Skeleton className={'w-[100px] h-[20px] rounded-full'} />  :  "You have spent / weekly"  }
                                 </CardDescription>
-                                <CardTitle className="text-5xl font-bold text-red-500">
-                                    {loading ? ( <Skeleton className="w-[200px] h-[50px] rounded-full" /> ) : ( <span> $ <NumberTicker className="text-red-500 font-bold" value={weeklyTotal} /></span>)}
+                                <CardTitle className="text-5xl font-bold">
+                                    {loading ? ( <Skeleton className="w-[200px] h-[50px] rounded-full" /> ) : ( <span> $ <NumberTicker className="font-bold" value={weeklyTotal} /></span>)}
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
-                                {loading ? (
+                                {
+                                    loading ? (
                                         <Skeleton className="w-[250px] h-[15px] rounded-full" /> ) :
-                                    (<div className="text-xs text-muted-foreground font-bold">
-                                        {weeklyChange >= 0 ? '+' : ''}{weeklyChange}% from last week
-                                    </div>)}
-
+                                    (
+                                        <div className="text-s text-muted-foreground flex">
+                                            {weeklyChange >= 0 ? <TrendingUp className="mr-1 text-red-600" /> : <TrendingDown className="mr-1 text-green-600" /> }
+                                            {Math.abs(weeklyChange).toFixed(1)}% from last week
+                                        </div>
+                                    )
+                                }
                             </CardContent>
                             <CardFooter>
                                 {loading ? <Skeleton className="w-full h-[15px] rounded-full" /> : (<Progress value={12} aria-label="12% increase"/>)}
-
                             </CardFooter>
                         </Card>
                     </div>

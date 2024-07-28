@@ -132,7 +132,7 @@ const ExpenseTypeBarChart = ( {data} ) =>{
                         accessibilityLayer
                         data={chartData}
                         layout="vertical"
-                        margin={{left: 10,}}
+                        margin={{left: 10}}
                     >
                         <YAxis
                             dataKey="type"
@@ -147,7 +147,7 @@ const ExpenseTypeBarChart = ( {data} ) =>{
                             cursor={false}
                             content= {<ChartTooltipContent />}
                         />
-                        <Bar dataKey="amount" layout="vertical" radius={5}>
+                        <Bar className="hover:cursor-pointer" dataKey="amount" layout="vertical" radius={5}>
                             {chartData.map((entry, index) => (
                                 <Cell key={`cell-${index}`} fill={entry.fill} />
                             ))}

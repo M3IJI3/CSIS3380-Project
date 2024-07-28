@@ -134,7 +134,7 @@ const ExpenseTypePieChart = ( {data} ) => {
                             label={({ percent }) => `${(percent * 100).toFixed(1)}%`}
                         >
                             {data.map((entry, index) => (
-                                <Cell key={`cell-${index}`} fill={expenseTypeColors[entry.type]} />
+                                <Cell className="hover:cursor-pointer" key={`cell-${index}`} fill={expenseTypeColors[entry.type]} />
                             ))}
                             <Label
                                 content={({ viewBox }) => {
@@ -151,7 +151,7 @@ const ExpenseTypePieChart = ( {data} ) => {
                                                     y={viewBox.cy}
                                                     className="fill-foreground text-3xl font-bold"
                                                 >
-                                                    {totalAmount.toLocaleString()}
+                                                    {totalAmount.toFixed(0).toLocaleString()}
                                                 </tspan>
                                                 <tspan
                                                     x={viewBox.cx}
@@ -174,7 +174,7 @@ const ExpenseTypePieChart = ( {data} ) => {
                     Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
                 </div>
                 <div className="leading-none text-muted-foreground">
-                    Showing total visitors for the last 6 months
+                    Showing total expense amount for the last 6 months
                 </div>
             </CardFooter>
         </Card>
