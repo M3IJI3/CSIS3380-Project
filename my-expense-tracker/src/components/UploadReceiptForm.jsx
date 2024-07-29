@@ -107,7 +107,7 @@ const PictureUploadPanel = ( {setMoneySpent, setDate} ) => {
                 <Button
                     type="button"
                     className="px-6 mx-auto bg-white text-black border hover:text-white"
-                    onClick={handleButtonClick}>
+                    onClick={handleButtonClick}
                     >
                     Upload
                 </Button>

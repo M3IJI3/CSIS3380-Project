@@ -130,7 +130,7 @@ const ExpenseTypePieChart = ( {data} ) => {
                             innerRadius={60}
                             outerRadius={120}
                             fill="#8884d8"
-                            paddingAngle={5}
+                            paddingAngle={2}
                             label={({ percent }) => `${(percent * 100).toFixed(1)}%`}
                         >
                             {data.map((entry, index) => (

@@ -128,10 +128,13 @@ const MainContent = () => {
                 }
 
                 // Calculate this week's total expenses
-                const startOfWeek = new Date();
-                startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay()); // Set to the start of the week (Sunday)
+                const startOfWeek = new Date(today);
+                startOfWeek.setDate(today.getDate() - (today.getDay() === 0 ? 6 : today.getDay() - 1)); // Set to the start of the week (Monday)
+                startOfWeek.setHours(0, 0, 0, 0); // Set to the start of the day
+
                 const endOfWeek = new Date(startOfWeek);
-                endOfWeek.setDate(endOfWeek.getDate() + 6); // Set to the end of the week (Saturday)
+                endOfWeek.setDate(startOfWeek.getDate() + 6); // Set to the end of the week (Sunday)
+                endOfWeek.setHours(23, 59, 59, 999); // Set to the end of the day
 
                 const thisWeekTotalAmount = fetchedExpenses
                     .filter(expense => new Date(expense.date) >= startOfWeek && new Date(expense.date) <= endOfWeek)
@@ -142,8 +145,11 @@ const MainContent = () => {
                 // Calculate last week's total expenses
                 const startOfLastWeek = new Date(startOfWeek);
                 startOfLastWeek.setDate(startOfLastWeek.getDate() - 7); // Set to the start of last week
+                startOfLastWeek.setHours(0, 0, 0, 0); // Set to the start of the day
+
                 const endOfLastWeek = new Date(startOfLastWeek);
-                endOfLastWeek.setDate(endOfLastWeek.getDate() + 6); // Set to the end of last week
+                endOfLastWeek.setDate(startOfLastWeek.getDate() + 6); // Set to the end of last week
+                endOfLastWeek.setHours(23, 59, 59, 999); // Set to the end of the day
 
                 const lastWeekTotalAmount = fetchedExpenses
                     .filter(expense => new Date(expense.date) >= startOfLastWeek && new Date(expense.date) <= endOfLastWeek)
