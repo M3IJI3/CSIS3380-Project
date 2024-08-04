@@ -74,7 +74,6 @@ Make sure you have the following installed on your machine:
 
 1. Open a new terminal window and navigate to the project root directory:
 
-   
    ```bash
    cd expense-tracker
    ```
