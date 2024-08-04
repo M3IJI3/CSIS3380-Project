@@ -10,7 +10,7 @@ A web application to track and analyze your expenses with various charts and vis
 - [⚙️ Installation](#installation)
 - [🚀 Usage](#usage)
 - [🤝 Contributing](#contributing)
-- [Contact](#contact)
+- [👌 Contact](#contact)
 
 ## 📖 Introduction
 
