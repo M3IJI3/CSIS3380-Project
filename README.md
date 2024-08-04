@@ -110,4 +110,5 @@ Contributions are what make the open source community such an amazing place to l
 ### 👌 Contact
 
 Jie Mei - @M3IJI3 - majorangeee@gmail.com
+
 Project Link: https://github.com/M3IJI3/CSIS3380-Project
