@@ -1,0 +1,291 @@
+{
+  "_id": {
+    "$oid": "66a5781210870653ee9289ee"
+  },
+  "username": "peekarboo",
+  "email": "111@111.com",
+  "password": "$2a$10$kdFYjFr4wAg4LpoibR86medk.ojwL498EWVd/lSpjQFyMGqEN.j7.",
+  "bills": [
+    {
+      "date": "2024-07-28",
+      "expenseType": "health",
+      "moneySpent": 11,
+      "_id": {
+        "$oid": "66a5783510870653ee9289f7"
+      }
+    },
+    {
+      "date": "2024-07-23",
+      "expenseType": "housing",
+      "moneySpent": 1700,
+      "_id": {
+        "$oid": "66a5789110870653ee928a15"
+      }
+    },
+    {
+      "date": "2024-06-13",
+      "expenseType": "housing",
+      "moneySpent": 1700,
+      "_id": {
+        "$oid": "66a578a910870653ee928a23"
+      }
+    },
+    {
+      "date": "2024-07-27",
+      "expenseType": "health",
+      "moneySpent": 345,
+      "_id": {
+        "$oid": "66a578fa10870653ee928a45"
+      }
+    },
+    {
+      "date": "2024-07-19",
+      "expenseType": "clothing",
+      "moneySpent": 902,
+      "_id": {
+        "$oid": "66a5790d10870653ee928a5b"
+      }
+    },
+    {
+      "date": "2024-07-25",
+      "expenseType": "travel",
+      "moneySpent": 2389,
+      "_id": {
+        "$oid": "66a5791b10870653ee928a75"
+      }
+    },
+    {
+      "date": "2024-07-28",
+      "expenseType": "debt",
+      "moneySpent": 560,
+      "_id": {
+        "$oid": "66a5792710870653ee928a93"
+      }
+    },
+    {
+      "date": "2024-07-28",
+      "expenseType": "dining",
+      "moneySpent": 470,
+      "_id": {
+        "$oid": "66a5794e10870653ee928ab5"
+      }
+    },
+    {
+      "date": "2024-07-28",
+      "expenseType": "utilities",
+      "moneySpent": 78,
+      "_id": {
+        "$oid": "66a5795f10870653ee928adb"
+      }
+    },
+    {
+      "date": "2024-07-28",
+      "expenseType": "education",
+      "moneySpent": 6700,
+      "_id": {
+        "$oid": "66a5796f10870653ee928b05"
+      }
+    },
+    {
+      "date": "2024-05-09",
+      "expenseType": "health",
+      "moneySpent": 4100,
+      "_id": {
+        "$oid": "66a5799110870653ee928b33"
+      }
+    },
+    {
+      "date": "2024-07-04",
+      "expenseType": "other",
+      "moneySpent": 5600,
+      "_id": {
+        "$oid": "66a579b510870653ee928b65"
+      }
+    },
+    {
+      "date": "2024-07-25",
+      "expenseType": "travel",
+      "moneySpent": 12000,
+      "_id": {
+        "$oid": "66a583a310870653ee9291b3"
+      }
+    },
+    {
+      "date": "2024-07-28",
+      "expenseType": "health",
+      "moneySpent": 1300,
+      "_id": {
+        "$oid": "66a5883510870653ee929703"
+      }
+    },
+    {
+      "date": "2024-07-27",
+      "expenseType": "insurance",
+      "moneySpent": 5000,
+      "_id": {
+        "$oid": "66a58c3310870653ee929bf1"
+      }
+    },
+    {
+      "date": "2024-07-27",
+      "expenseType": "entertainment",
+      "moneySpent": 4500,
+      "_id": {
+        "$oid": "66a58c4a10870653ee929c33"
+      }
+    },
+    {
+      "date": "2024-07-28",
+      "expenseType": "debt",
+      "moneySpent": 10000,
+      "_id": {
+        "$oid": "66a58df510870653ee929f76"
+      }
+    },
+    {
+      "date": "2017-07-04",
+      "expenseType": "education",
+      "moneySpent": 29.01,
+      "_id": {
+        "$oid": "66a5bc4730ecfa27ffc8ec65"
+      }
+    },
+    {
+      "date": "2017-07-04",
+      "expenseType": "groceries",
+      "moneySpent": 29.01,
+      "_id": {
+        "$oid": "66a5bc7530ecfa27ffc8ecb3"
+      }
+    },
+    {
+      "date": "2017-07-04",
+      "expenseType": "housing",
+      "moneySpent": 29.01,
+      "_id": {
+        "$oid": "66a5bc9e30ecfa27ffc8ed05"
+      }
+    },
+    {
+      "date": "2017-07-04",
+      "expenseType": "dining",
+      "moneySpent": 29.01,
+      "_id": {
+        "$oid": "66a5bcd430ecfa27ffc8ed5b"
+      }
+    },
+    {
+      "date": "2017-07-04",
+      "expenseType": "travel",
+      "moneySpent": 29.01,
+      "_id": {
+        "$oid": "66a5bce730ecfa27ffc8edb5"
+      }
+    },
+    {
+      "date": "2024-07-10",
+      "expenseType": "transportation",
+      "moneySpent": 66,
+      "_id": {
+        "$oid": "66a5bcf730ecfa27ffc8ee13"
+      }
+    },
+    {
+      "date": "2017-07-04",
+      "expenseType": "housing",
+      "moneySpent": 29.01,
+      "_id": {
+        "$oid": "66a5bd2630ecfa27ffc8ee75"
+      }
+    },
+    {
+      "date": "2024-07-29",
+      "expenseType": "clothing",
+      "moneySpent": 120,
+      "_id": {
+        "$oid": "66a608a9896d49330c7e66b2"
+      }
+    },
+    {
+      "date": "2024-07-28",
+      "expenseType": "transportation",
+      "moneySpent": 50,
+      "_id": {
+        "$oid": "66a608d7896d49330c7e671c"
+      }
+    },
+    {
+      "date": "2024-07-28",
+      "expenseType": "clothing",
+      "moneySpent": 120,
+      "_id": {
+        "$oid": "66a6090c896d49330c7e678a"
+      }
+    },
+    {
+      "date": "2024-07-27",
+      "expenseType": "groceries",
+      "moneySpent": 500,
+      "_id": {
+        "$oid": "66a609ef896d49330c7e68dc"
+      }
+    },
+    {
+      "date": "2024-07-31",
+      "expenseType": "entertainment",
+      "moneySpent": 120,
+      "_id": {
+        "$oid": "66a60a10896d49330c7e6952"
+      }
+    },
+    {
+      "date": "2017-07-04",
+      "expenseType": "travel",
+      "moneySpent": 29.01,
+      "_id": {
+        "$oid": "66a60ab5896d49330c7e69cc"
+      }
+    },
+    {
+      "date": "2024-07-28",
+      "expenseType": "dining",
+      "moneySpent": 111,
+      "_id": {
+        "$oid": "66a739b6d24287540e2971e9"
+      }
+    },
+    {
+      "date": "2024-07-29",
+      "expenseType": "groceries",
+      "moneySpent": 111,
+      "_id": {
+        "$oid": "66a739d6d24287540e29726b"
+      }
+    },
+    {
+      "date": "2024-07-30",
+      "expenseType": "housing",
+      "moneySpent": 1110,
+      "_id": {
+        "$oid": "66a739e7d24287540e2972f1"
+      }
+    },
+    {
+      "date": "2024-08-01",
+      "expenseType": "education",
+      "moneySpent": 3000,
+      "_id": {
+        "$oid": "66aac4a63fb1952e3921d1a5"
+      }
+    },
+    {
+      "date": "2017-07-04",
+      "expenseType": "dining",
+      "moneySpent": 29.01,
+      "_id": {
+        "$oid": "66aac53c3fb1952e3921d233"
+      }
+    }
+  ],
+  "__v": 35
+}
