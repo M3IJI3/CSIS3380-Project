@@ -50,3 +50,6 @@ Make sure you have the following installed on your machine:
    ```bash
    git clone https://github.com/yourusername/expense-tracker.git
    cd expense-tracker
+   ```
+
+2. 
