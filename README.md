@@ -4,13 +4,13 @@ A web application to track and analyze your expenses with various charts and vis
 
 ## Table of Contents
 
-- [📖 Introduction](#introduction)
-- [✨ Features](#features)
-- [🛠 Technologies](#technologies)
-- [⚙️ Installation](#installation)
-- [🚀 Usage](#usage)
-- [🤝 Contributing](#contributing)
-- [👌 Contact](#contact)
+- [📖 Introduction](#-introduction)
+- [✨ Features](#-features)
+- [🛠 Technologies](#-technologies)
+- [⚙️ Installation](#-installation)
+- [🚀 Usage](#-usage)
+- [🤝 Contributing](#-contributing)
+- [👌 Contact](#-contact)
 
 ## 📖 Introduction
 
