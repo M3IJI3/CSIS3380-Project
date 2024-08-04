@@ -49,51 +49,47 @@ Make sure you have the following installed on your machine:
    git clone https://github.com/yourusername/expense-tracker.git
    cd expense-tracker
 
-
 2. Install backend dependencies
 
-   
-bash
+   ```bash
    cd server
    npm install
-
+   ```
 
 3. Create a .env file in the server directory and add your MongoDB connection string and JWT secret:
 
-   
-bash
+   ```bash
    MONGO_URI=your_mongodb_connection_string
    JWT_SECRET=your_jwt_secret
-
+   ```
 
 4. Start backend server
 
-   
-bash
+   ```bash
    node server.js
-
+   ```
+   
 ### Frontend Setup
 
 1. Open a new terminal window and navigate to the project root directory:
 
    
-bash
+   ```bash
    cd expense-tracker
-
+   ```
 
 2. Install frontend dependencies:
 
-   
-bash
+   ```bash
    npm install
-
+   ```
 
 3. npm start
    
-bash
+   ```bash
    npm run dev
-
-
+   ```
+   
 ### 🚀 Usage
 
 1. Open your web browser and navigate to http://localhost:3000.
