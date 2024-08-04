@@ -1,111 +1,52 @@
 # Expense Tracker
 
-A web application to track expenses with features such as uploading receipts, expense categorization, and more.
+A web application to track and analyze your expenses with various charts and visualizations.
 
 ## Table of Contents
-- [Prerequisites](#prerequisites)
+
+- [Introduction](#introduction)
+- [Features](#features)
+- [Technologies](#technologies)
 - [Installation](#installation)
-- [Running the Project](#running-the-project)
 - [Usage](#usage)
-- [API Endpoints](#api-endpoints)
-- [Folder Structure](#folder-structure)
 - [Contributing](#contributing)
 - [License](#license)
+- [Contact](#contact)
 
-## Prerequisites
+## Introduction
 
-Ensure you have the following installed:
-- Node.js (v14 or higher)
-- npm or yarn
-- MongoDB
+Expense Tracker is a web application designed to help users manage their expenses efficiently. The application provides various charts and visualizations to analyze spending patterns and make informed financial decisions.
+
+## Features
+
+- Track daily, weekly, and monthly expenses.
+- Visualize expense data with bar charts and pie charts.
+- Categorize expenses by type (e.g., education, groceries, entertainment).
+- View trends and analyze spending patterns.
+
+## Technologies
+
+- **Frontend**: React, Recharts, Tailwind CSS
+- **Backend**: Node.js, Express
+- **Database**: MongoDB
+- **Authentication**: JWT (JSON Web Tokens)
 
 ## Installation
 
-### Backend
+To get a local copy up and running, follow these steps:
 
-1. Clone the repository
-    ```bash
-    git clone https://github.com/yourusername/expense-tracker.git
-    cd expense-tracker/server
-    ```
+### Prerequisites
 
-2. Install dependencies
-    ```bash
-    npm install
-    ```
+Make sure you have the following installed on your machine:
 
-3. Create a `.env` file in the `server` directory and add the following environment variables:
-    ```
-    PORT=5000
-    MONGODB_URI=your_mongodb_connection_string
-    JWT_SECRET=your_jwt_secret
-    ```
+- Node.js (v14 or higher)
+- npm (v6 or higher)
+- MongoDB
 
-### Frontend
+### Backend Setup
 
-1. Navigate to the `client` directory
-    ```bash
-    cd ../client
-    ```
+1. Clone the repository:
 
-2. Install dependencies
-    ```bash
-    npm install
-    ```
-
-## Running the Project
-
-### Backend
-
-1. Start the MongoDB server if it's not already running:
-    ```bash
-    mongod
-    ```
-
-2. Run the backend server
-    ```bash
-    npm start
-    ```
-
-### Frontend
-
-1. Start the frontend development server
-    ```bash
-    npm start
-    ```
-
-2. Open your browser and navigate to `http://localhost:3000`
-
-## Usage
-
-1. Register a new account or log in with existing credentials.
-2. Add new expenses manually or upload a receipt to extract expense details.
-3. View and manage your expenses in the dashboard.
-
-## API Endpoints
-
-### Authentication
-
-- **POST** `/api/register`
-  - Request body: `{ "username": "example", "email": "example@example.com", "password": "password123" }`
-  - Response: `200 OK`, `User object`
-
-- **POST** `/api/login`
-  - Request body: `{ "email": "example@example.com", "password": "password123" }`
-  - Response: `200 OK`, `{ "token": "jwt_token", "user": { "username": "example" } }`
-
-### Expenses
-
-- **POST** `/api/expenses`
-  - Headers: `Authorization: Bearer <token>`
-  - Request body: `{ "date": "2023-01-01", "expenseType": "groceries", "moneySpent": 100 }`
-  - Response: `201 Created`, `Expense object`
-
-- **GET** `/api/gettotalbills`
-  - Headers: `Authorization: Bearer <token>`
-  - Response: `200 OK`, `[ { "date": "2023-01-01", "expenseType": "groceries", "moneySpent": 100 } ]`
-
-## Folder Structure
-
-
-
+   ```bash
+   git clone https://github.com/yourusername/expense-tracker.git
+   cd expense-tracker
