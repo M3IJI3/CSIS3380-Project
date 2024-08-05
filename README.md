@@ -1,9 +1,7 @@
 # 💸 Expense Tracker
 
-<<<<<<< HEAD
-1. Start Node.js 
+1. Start Node.js
 
-=======
 A web application to track and analyze your expenses with various charts and visualizations.
 
 ## Table of Contents
