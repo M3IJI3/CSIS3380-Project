@@ -109,7 +109,7 @@ const NewExpenseForm = ({ fetchExpenses }) => {
         console.log(token)
 
         try {
-            const response = await axios.post('http://localhost:5000/api/expenses', formData, {
+            const response = await axios.post('http://localhost:5001/api/expenses', formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

@@ -73,7 +73,7 @@ const MainContent = () => {
         try{
             await new Promise(resolve => setTimeout(resolve, 2000));
 
-            const response = await axios.get('http://localhost:5000/api/gettotalbills', {
+            const response = await axios.get('http://localhost:5001/api/gettotalbills', {
                 headers:{
                     Authorization: `Bearer ${token}`,
                 },

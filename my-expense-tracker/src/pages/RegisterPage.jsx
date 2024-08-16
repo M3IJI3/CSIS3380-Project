@@ -73,7 +73,7 @@ const RegisterForm = () => {
     // 2. Define a submit handler.
     const onSubmit = (values) => {
         // Do something with the form values.
-        axios.post('http://localhost:5000/api/register', {
+        axios.post('http://localhost:5001/api/register', {
             username: values.username,
             email: values.email,
             password: values.password,
