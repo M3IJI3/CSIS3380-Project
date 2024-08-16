@@ -1,9 +1,5 @@
 # 💸 Expense Tracker
 
-<<<<<<< HEAD
-1. Start Node.js 
-
-=======
 A web application to track and analyze your expenses with various charts and visualizations.
 
 ## Table of Contents
@@ -115,4 +111,3 @@ Contributions are what make the open source community such an amazing place to l
 Jie Mei - @M3IJI3 - majorangeee@gmail.com
 
 Project Link: https://github.com/M3IJI3/CSIS3380-Project
->>>>>>> df5849359ebf2a8a1cef1f9c7fc0c7b0867b3fb4
